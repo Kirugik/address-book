@@ -17,6 +17,10 @@ function Address(street, city, county) {
   this.county = county;
 }
 
+Address.prototype.fullAddress = function() {
+  return this.street + ", " + this.city + ", " + this.county;
+}
+
 
 // USER INTERFACE LOGIC
 $(document).ready(function() {
@@ -48,17 +52,21 @@ $(document).ready(function() {
         //displaying addresses alongside the name
         $("ul#addresses").text("");
         newContact.addresses.forEach(function(address) {
-          $("ul#addresses").append("<li>" + address.street + ", " + address.city + " " + address.County + "</li>");
+          $("ul#addresses").append("<li>" + address.fullAddress() + "</li>");
         });
       });
-
-      //clearing the fields after the form is submitted 
-      $("input#new-first-name").val("");
-      $("input#new-last-name").val("");
-      $("input.new-street").val("");
-      $("input.new-city").val("");
-      $("input.new-county").val("")
+      resetInputFields();
     });
+
+
+    //clearing the fields after the form is submitted 
+    function resetInputFields() {
+    $("input#new-first-name").val("");
+    $("input#new-last-name").val("");
+    $("input.new-street").val("");
+    $("input.new-city").val("");
+    $("input.new-county").val("")
+    }
 
     //collecting address details from the user
     $("#add-address").click(function() {
